@@ -103,17 +103,34 @@ document.getElementById("demo").innerHTML = text;
  - .textContent
 
  ## changing an attribute
- - sytax 
+ - syntax 
  > document.getElementById(id).attribute = new value
 
  - for the dynamic
    - pass Date() : it will print the current date
    - document.write() : by using this we can write directly to the HTML output stream whatever we want from the script however never use document.write() after the document is loaded. It will overwrite the document.
 
- ## changing css or style of HTML
+ # changing css or style of HTML
  - syntax
  > document.getElementById(id).style.property= new style
- - by using event also we can change the HTML tag like onClick() event etc.
+ - by using event also we can change the HTML tag like onClick() event etc. 
+- examples
+```
+<input type="button" value="HideText" onclick="document.getElementById(id).style.visibility='hidden'" />
+
+<input type="button" value="ShowText" onclick="document.getElementById(id).style.visibility='visible'">
+
+```
+# HTML Form Validation
+- it can be done by JavaScript
+- if some fields are missing, we can create a function and get the field name with "document.forms[formname][fieldname].value", then we can pass the condition and throw alert message and return false.
+- or simply we can put an attribute "required" to the html element
+- for other validation we can check on HTML Constraint Validation and pseudo validation of css
+
+
+
+
+
  
 
  
