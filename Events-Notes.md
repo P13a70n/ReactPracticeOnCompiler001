@@ -1,0 +1,182 @@
+# HTML Event
+- HTML events are things that happen to HTML elements.
+
+- Examples of events:
+
+    - An HTML button is clicked
+    - A web page has finished loading
+    - The mouse moves over an element
+    - A keyboard key is pressed
+    - An HTML input field is changed
+
+- syntax
+> <_element_ _eventName_ = 'Javascript or function'>
+
+- we can change by writing ***this.innerHTML = _function()_***
+
+## common HTML event
+- onchange
+- onclick
+- onmouseover
+- onmouseout
+- onkeydown
+- onload
+
+## Javascript Event Handlers
+
+- An event handler is JavaScript code that runs when an event happens.
+
+- Event handlers can be used to handle and verify user input, user actions, and browser actions:
+
+    - Things that should be done every time a page loads
+    - Things that should be done when the page is closed
+    - Action that should be performed when a user clicks a button
+    - Content that should be verified when a user inputs data
+    - And more ...
+- Many different methods can be used to let JavaScript work with events:
+
+    - HTML event attributes can execute JavaScript code directly
+    - HTML event attributes can call JavaScript functions
+    - You can assign your own event handler functions to HTML elements
+    - You can prevent events from being sent or being handled
+    - And more ...
+
+- ***using Event listner***
+    - using _addEventListener()_ is the recommended way to handle events.
+    - by using these, we can keep HTML and Javascript separated.
+
+## JavaScript Mouse Event
+- Mouse events happen when the user interacts with the mouse.
+- some common mouse events:
+    - click
+    - dblclick
+    - mouseover / mouseout
+    - mousemove
+    - mousedown / mouseup
+    - mouseenter
+    - mouseleave
+    - contextmenu
+    - wheel : scrolling or zooming
+    - dragevents
+
+- Mouse events are crucial for creating interactive web pages and applications, triggering specific functions in response to user actions like mouse clicks, scrolls, and movements.
+```
+<div id="box"
+style="width:200px;height:100px;padding:16px;border:1px solid #000;">
+Move mouse over this box!
+</div>
+
+<script>
+const box = document.getElementById("box");
+
+//mouseover
+box.addEventListener("mouseover", function(){
+  box.innerHTML = "Move mouse is inside the box!";
+});
+
+//mouseout
+box.addEventListener("mouseout", function(){
+box.innerHTML = "mouse is outside the box";
+});
+
+</script>
+```
+
+### Mouse Position
+ - if we want to know the pointer position in coordinates
+
+ ```
+<p id="demo">Move the mouse in this window!</p>
+
+<script>
+// Let document listen for mousemove
+document.addEventListener("mousemove", function (event) {
+  document.getElementById("demo").innerHTML =
+  "X: " + event.clientX + " Y: " + event.clientY;
+});
+</script>
+ ```
+
+ ## JavaScript Keyboard Events
+ - happens when the user presses a key on the keyboard
+    - keydown
+    - keyup
+    - keypress : deprecated not recommended
+
+- to check which key is pressed
+ ```
+<input id="k" type="text" placeholder="Press a key here!">
+
+<p id="demo"></p>
+
+<script>
+const k = document.getElementById("k");
+
+// Let k listen for keydown
+k.addEventListener("keydown", function (event) {
+  document.getElementById("demo").innerHTML = "You pressed: " + event.code; // use event.key and check the difference
+});
+</script>
+ ```
+
+ > Note: You can also detect modifier keys using properties like event.ctrlKey, event.shiftKey, event.altKey, and event.metaKey to implement key combinations (e.g., Ctrl + S).
+
+## Javascript Load Events
+- Load Events happen when the browser has finished an element.
+- two most important load events:
+    - DOMContentLoaded (when HTML is ready)
+    - load (waits for pages, images, CSS,etc.)
+
+- DOMContentLoaded
+    - The DOMContentLoaded event fires when the browser has fully loaded the HTML and built the Document Object Model (DOM) tree, but has not necessarily finished loading external resources like images and stylesheets.
+
+    - The DOMContentLoaded event is best for initializing the user interface, attaching event handlers, and performing actions that only require the DOM to be ready.
+```
+    document.addEventListener("DOMContentLoaded", function () {
+         document.getElementById("demo").innerHTML = "HTML is loaded!";
+         });
+```
+- Window Load
+    - The load event fires when the entire page has fully loaded, including all dependent resources such as images, stylesheets, and sub-frames.
+
+    - The load event is best for actions that require all resources available, such as getting the dimensions of an image or checking the browser type.
+
+```
+<script>
+// Add Event Listener to window
+window.addEventListener("load", function () {
+  document.getElementById("demo").innerHTML = "Page is fully loaded!";
+});
+</script>
+```
+
+## Javascript Timing Events
+- Timing Events let us run code:
+    - after a delay
+    - or repeatedly
+
+    Timing is driven by Timing Events generated by the system clock.
+
+### Timer Function
+- setTimeOut()  : sets a clock timeout(runs once)
+- setInterval() : sets a clock interval(runs repeatedly)
+- clearTimeout() : clears a timeout
+- clearInterval() : clears an interval
+- setTimeout() is the same as window.setTimeout().
+- clock:
+```
+<p id="demo"></p>
+
+<script>
+
+setInterval(showTime, 1000);
+
+
+function showTime(){
+ const time = new Date();
+ document.getElementById("demo").innerHTML = time.getHours() + " : " + time.getMinutes() + " : " + time.getSeconds();
+
+}
+```
+
+
