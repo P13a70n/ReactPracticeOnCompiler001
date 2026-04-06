@@ -5,3 +5,9 @@ button {
   margin: 5px;
   border-radius: 10px;
 }
+.calculator {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10x;
+  width: 260px;
+}

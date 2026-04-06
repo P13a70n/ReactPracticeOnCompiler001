@@ -3,54 +3,76 @@ import { useState } from 'react'
 import '/styles.css';
 
 function App() {
-   const [input, setInput] = useState("");
-   
-   const handleClick = (value) => {
-     setInput(input + value )
-   }
-   
-   const calculate = () =>{
-     try{
-       setInput(eval(input).toString());
-     }
-     catch{
-       setInput("Error");
-     }
-   }
-   
-   const clear = () =>{
-     setInput("");
-   }
-   
-   const backspace = () =>{
-     setInput(input.slice(0, -1));
-   }
+  const [input, setInput] = useState("");
+
+  // this will act for every key when they click like eventListener
+  const handleClick = (value) => {
+    setInput(input + value)
+  }
+
+  // whatever we got in a string with the eval() method we are calculating
+  const calculate = () => {
+    try {
+      setInput(eval(input).toString());
+    }
+    catch {
+      setInput("Error");
+    }
+  }
+
+  // to clear all the strings
+  const clear = () => {
+    setInput("");
+  }
+
+  // to del the last value, we know that if we pass -ve in the end then it will start from end
+  const backspace = () => {
+    setInput(input.slice(0, -1));
+  }
+
+
+  //for passing every value this condition will take common
+  const handleButtonClick = (value) => {
+    if (value === 'C') {
+      clear();
+    } else if (value === 'DEL') {
+      backspace();
+    } else if (value === '=') {
+      calculate();
+    } else {
+      handleClick(value);
+    }
+  }
+
+  // here we give all the buttons so that we can map them to recude the codes and eassy for debugging
+  const buttons = [
+    "1", "2", "3", "+",
+    "4", "5", "6", "-",
+    "7", "8", "9", "*",
+    "0", "C", "=", "/"];
+
   return (
     <>
-     <input placeholder='Enter the number' width='90' value={input}/>
-     <button onClick={backspace}>DEL</button>
-     <br />
-     <button onClick={() => handleClick("1")} >1</button>
-     <button onClick={() => handleClick("2")} >2</button>
-     <button onClick={() => handleClick("3")}>3</button>
-     <button onClick={() => handleClick("+")}>+</button>
-     <br />
-     <button onClick={() => handleClick("4")}>4</button> 
-     <button onClick={() => handleClick("5")}>5</button>
-     <button onClick={() => handleClick("6")}>6</button>
-     <button onClick={() => handleClick("-")}>-</button>
-     <br />
-     <button onClick={() => handleClick("7")}>7</button> 
-     <button onClick={() => handleClick("8")}>8</button>
-     <button onClick={() => handleClick("9")}>9</button>
-     <button onClick={() => handleClick("*")}>*</button>
-      <br />
-     <button onClick={() => handleClick("0")}>0</button> 
-     <button onClick={clear}>C</button>
-     <button onClick={calculate}>=</button>
-     <button onClick={() => handleClick("/")}>/</button>
+      <input 
+      placeholder='Enter the number' 
+      width='90' value={input} 
+      onChange={(e) => setInput(e.target.value)} />
+
+      <div className="top-header">
+        <button onClick={backspace}>DEL</button>
+        <button onClick={() => handleClick(".")} >.</button>
+      </div>
+      
+      <div className="calculator">
+        {buttons.map((btn, index) => (
+          <button
+            key={index}
+            onClick={() => handleButtonClick(btn)}
+            className={btn === '=' ? 'equals' : ''}
+          >{btn}</button>))}
+      </div>
     </>
-  )
+  );
 }
 
 export default App
