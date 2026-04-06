@@ -1,11 +1,11 @@
 import React from 'react';
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 function App() {
   const [name, setName] = useState('');
   const [tasks, setTasks] = useState([]);
-  
-  let tasksId = 0;
+  const tasksId = useRef(1);
+  //let tasksId = 0;
   
   // to handle the changes on input tag 
   function handleChange(event){
@@ -14,15 +14,25 @@ function App() {
   
   // add the task
   function handleAdd(){
-    if(name.trim() !== ''){
-    setTasks(
-      [...tasks, {id:tasksId++, name: name}]
-      );
-    setName('');
-    }else{
-      alert(`task name can't be empty`);
+    
+   
+    if(name.trim() == ''){
+       alert(`task name can't be empty`);
       return;
     }
+    
+    const isDuplicate = tasks.some( 
+      task => task.name.toLowerCase() === name.toLowerCase()
+      )
+      
+    if(isDuplicate){
+      alert(`Task existed`);
+      setName('');
+      return;
+    }
+      
+    setTasks(prev => [...prev, {id:tasksId.current++, name: name}]);
+    setName('');
   }
 
   // delete button
@@ -44,7 +54,7 @@ function App() {
       <div>
         <ul>
           {tasks.map(task =>(
-             <li key={task.id}>{task.name} <button onClick={() => handleDelete(task.id)}
+             <li key={task.id}>{task.id} - {task.name} <button onClick={() => handleDelete(task.id)}
              >Delete</button> 
              </li>
           ))}
